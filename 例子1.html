@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+	<title>跳转</title>
+	<style type="text/css">
+    *{
+          margin: 0;
+         padding: 0;
+     }
+    a{
+   	  color: green;
+      text-decoration:none;
+      display: block;
+   	}
+   	a:hover{
+      background:gray;
+    }
+    #p1{
+      list-style: none;
+      height: 100px;
+    }
+    ul li{
+      width: 90px;
+      height: 30px;
+      line-height: 30px;
+      text-align: center;
+      float: left;
+      display: block;
+      background: yellow;
+      margin-right: 5px;
+    }
+    ul{
+      width: 360px;
+    }
+    .s{
+      height: 100px;
+      width: 100px;
+    }
+    .aa{
+      padding: 20px;
+      background: #faa;
+    }
+    .bb{
+      background: #f88;
+      padding: 20px;
+    }   
+    .cc{
+      background: #f66;
+      padding: 20px;
+    }
+    .dd{
+       background: #f44;
+      padding: 20px;
+    }
+    #container{
+      height: 100px;
+      width: 100px;
+      margin: 100px auto;
+      position: relative;
+    }
+    .s{
+      position: absolute;
+/*      top: 0;
+      left: 0;*/
+    }
+	</style>
+</head>
+<body>
+    <ul id="p1">
+       <li><a href="#">link one</a></li>
+       <li><a href="#">link two</a></li>
+       <li><a href="#">link three</a></li>    
+    </ul>
+
+    <div id="container">
+      <div class="s aa">
+        <div class="s bb">
+          <div class="s cc">
+            <div class="s dd" id="dd"></div>
+          </div>
+        </div>  
+      </div>
+    </div>
+   
+    <script>
+      var oContainer = document.getElementById('container'); 
+      var aDiv = oContainer.getElementsByTagName('div');
+      for (var i=0; i<aDiv.length; i++) {
+        aDiv[i].onclick = function(){
+          var that = this;
+          var addTop = 0;
+          var timer = setInterval(function(){
+            if (addTop >= 100) {
+              clearInterval(timer);
+            }else{
+              that.style.top = that.offsetTop + 10 + 'px';
+              addTop += 10;
+            }
+          },200);
+        };
+      }
+      // oDd.onclick = function(){
+      //   console.log(oDd);
+      //   console.log(oDd.offsetTop);
+      //   var timer = setInterval(function(){
+      //     if (oDd.offsetTop >= 500) {
+      //       clearInterval(timer);
+      //     }else{
+      //       oDd.style.top = oDd.offsetTop + 20 + 'px';
+      //     }
+      //   },200);
+      // };
+    </script>
+</body>
+</html>
