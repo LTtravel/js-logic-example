@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>12345</title>
+	<meta charset="UTF-8">
+</head>
+<body>
+
+
+
+
+
+<script>
+	
+	function arr(){
+		for (var i = 0; i < 5; i++) {
+			for (var j = 0; j <= i; j++) {
+				document.write(j+1 + "&nbsp");
+			}
+			document.write("<br/>");
+		}
+	}
+     //document.write(arr());
+	arr();
+
+
+
+    document.write("<br/>**三角形：<br/>");
+	function triangle(){
+		for (var i = 5; i > 0; i--) {
+			for (var j = 0; j < i; j++) {
+				document.write("&nbsp");
+			}
+			for (var j = 6-i; j > 0; j--) {
+                document.write("* " + "&nbsp");
+			}
+            document.write("<br/>");	
+		}
+	}
+	triangle();
+    
+
+
+
+
+
+    document.write("<br/>1-1000中3,5,7的倍数<br/>");
+	function di(){
+		var result = new Array();//定义一个数组，名为result
+		for (var i = 1; i <= 1000; i++) {
+			if (i%3==0 && i%5==0 && i%7==0) {
+				result.push(i);//将符合条件的数压入数组result中
+			}
+		}
+		return result;
+	}
+	var a =di();
+	var count =0;
+	for (var i = 0; i < a.length; i++) {
+		count++;
+		document.write(a[i] + "&nbsp");
+		if (count % 3 == 0) {
+			document.write("<br/>");
+		}
+	}
+
+    
+    function factorial(num){
+    	var accumulate=1;
+    	for (var i = 1; i < num; i++) {
+    		accumulate*=i;
+    	}
+    	return accumulate;
+    }
+    var n = 5;
+    document.write("<br/>" + n + "的阶乘是" + factorial(n));
+
+
+
+    document.write("<br/>" + "斐波那契数列");
+    function fibo(number){
+    	if (number == 1 || number==2) {
+    		return 1;
+    	}else{
+    		return fibo(number-1)+fibo(number-2);
+    	}
+    }
+    var number = 7;
+    for (var i = 1; i <= number; i++) {
+    	document.write("<br/>" + fibo(i));
+    }
+
+    
+    document.write("<br/>" + "计算π的近似值:");
+    function calculatePi(numOne){
+    	var Pi = 0;
+    	for (var i = 1; i <= numOne; i++) {
+    		Pi += 4 * (Math.pow(-1,i-1) * (1 / (2 * i - 1)));
+    	}
+    	return Pi;
+    }
+    var numOne = new Array(100,500,1000,10000,100000);
+    for (var i = 0; i < numOne.length; i++) {
+    	document.write(calculatePi(numOne[i]) + "&nbsp");
+    }
+
+
+</script>
+</body>
+</html>
