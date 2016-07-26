@@ -6,12 +6,7 @@
 </head>
 <body>
 
-
-
-
-
 <script>
-	
 	function arr(){
 		for (var i = 0; i < 5; i++) {
 			for (var j = 0; j <= i; j++) {
@@ -20,30 +15,21 @@
 			document.write("<br/>");
 		}
 	}
-     //document.write(arr());
+     	//document.write(arr());
 	arr();
-
-
-
-    document.write("<br/>**三角形：<br/>");
-	function triangle(){
-		for (var i = 5; i > 0; i--) {
-			for (var j = 0; j < i; j++) {
-				document.write("&nbsp");
+    	document.write("<br/>**三角形：<br/>");
+		function triangle(){
+			for (var i = 5; i > 0; i--) {
+				for (var j = 0; j < i; j++) {
+					document.write("&nbsp");
+				}
+				for (var j = 6-i; j > 0; j--) {
+                			document.write("* " + "&nbsp");
+				}
+        		 document.write("<br/>");	
 			}
-			for (var j = 6-i; j > 0; j--) {
-                document.write("* " + "&nbsp");
-			}
-            document.write("<br/>");	
 		}
-	}
 	triangle();
-    
-
-
-
-
-
     document.write("<br/>1-1000中3,5,7的倍数<br/>");
 	function di(){
 		var result = new Array();//定义一个数组，名为result
