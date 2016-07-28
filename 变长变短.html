@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>long to short</title>
+	<meta charset="utf-8">
+	<style>
+		*{
+			margin: 0;
+			padding:0;
+		}
+		#squre{
+			height: 100px;
+			width: 100px;
+			background: #f70;
+		}
+	</style>
+</head>
+<body>
+	<div id="squre"></div>
+	<script>
+		var oSqure = document.getElementById('squre');
+		var timer;
+		oSqure.onmouseover = function(){
+			clearInterval(timer);
+			timer = setInterval(function(){
+				if (oSqure.offsetWidth <= 300) {
+					oSqure.style.width = oSqure.offsetWidth + 10 +'px';
+				}else{
+					clearInterval(timer);
+				}
+			
+			},30);
+			
+		};
+		oSqure.onmouseout = function(){
+			clearInterval(timer);
+			timer = setInterval(function(){
+				if (oSqure.offsetWidth >= 100) {
+					oSqure.style.width = oSqure.offsetWidth - 10 +'px';
+				}else{
+					clearInterval(timer);
+				}
+			},30);
+		};
+	</script>
+</body>
+</html>
