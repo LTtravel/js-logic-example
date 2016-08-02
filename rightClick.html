@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>rightClick</title>
+	<meta charset="UTF-8">
+	<style>
+	    *{
+            margin: 0px;
+            padding: 0px;
+	    }
+	    ul{
+	    	text-decoration: none;
+	    }
+        body{
+			height:2000px;
+		}
+		#column{
+			height: 120px;
+			width: 50px;
+			background: pink;
+			border: 1px dotted #000;
+		}
+		#column li{
+			height: 39px;
+			line-height: 39px;
+			text-align: center;
+			display: block;
+		}
+		.line{
+			border-bottom: 1px solid #000;
+		}
+		
+	</style>
+	
+</head>
+<body>
+    <div id="oneUl">
+    	<ul  id="column">
+    		<li class="line">copy</li>
+    		<li class="line">load</li>
+    		<li>rename</li>
+    	</ul>
+    </div>
+
+
+
+    <script>
+        var rightClink = document.getElementById("column");
+        rightClink.style.display = "none";
+    	document.body.oncontextmenu = function(e){
+            // console.log(e.clientX);
+            // console.log(e.clientY);
+            rightClink.style.position = "absolute";
+            rightClink.style.left = e.clientX + "px";
+            rightClink.style.top =e.clientY + "px";
+    		//console.log(rightClink);
+    		rightClink.style.display = "block";
+
+    		return false;// 阻止默认行为
+    	}
+    </script>
+</body>
+</html>
