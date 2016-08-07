@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>联系我们</title>
+	<meta charset="UTF-8">
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		body{
+			height: 2000px;
+		}
+		#container{
+			height: 200px;
+			width: 300px;
+			background: #ccc;
+			position: absolute;
+			left: -200px;
+			margin-top: 400px;
+		}
+		#contact{
+			width: 100px;
+			height: 200px;
+			background: #f00;
+			position: absolute;
+			right: 0;
+			top: 0;
+			text-align: center;
+			line-height: 200px;
+		}
+	</style>
+</head>
+<body>
+	<div id="container">
+		<div id="contact">联系我们</div>
+	</div>
+	<script>
+		var oContainer = document.getElementById('container');
+		var timer;
+		window.onscroll = function(){//用此方法解决fixed不兼容问题
+			var iScrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+			oContainer.style.top = iScrollTop + 10 +'px';
+		};
+		oContainer.onmouseover = function(){
+			clearInterval(timer);
+			//var that = this;
+			timer = setInterval(function(){
+				if (oContainer.offsetLeft >= 0) {
+					clearInterval(timer);
+				}else{
+					oContainer.style.left = oContainer.offsetLeft + 10 +'px';
+				}
+			},20);
+		};
+		oContainer.onmouseout = function(){
+			clearInterval(timer);
+			timer = setInterval(function(){
+				if (oContainer.offsetLeft <= -200) {
+					clearInterval(timer);
+				}else{
+					oContainer.style.left = oContainer.offsetLeft - 10 + 'px';
+				}
+			},20);
+			
+		};
+	</script>
+</body>
+</html>
