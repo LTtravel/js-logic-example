@@ -1,0 +1,30 @@
+<<!DOCTYPE html>
+<html>
+<head>
+	<title>setTime</title>
+	<meta charset="UFT-8">
+</head>
+<body>
+    <script>
+    	var count = 0;
+	    var timer = setInterval(function(){
+	    //setInterval一到时间就会执行，所以会不停地执行
+	    	console.log(Math.random());
+	    	count++;
+	    	if (count == 5) {
+	    		clearInterval(timer);
+	    	}
+	    }, 100);
+
+	    var timerA = setTimeout(function(){//setTimeout只执行一次
+	    	console.log('abc');
+	    }, 1000);
+	    alert(1);
+	    setTimeout(function(){
+	    //setTimeout能脱离当前队列，相当于又开辟了一个新队列
+	    	alert(2);
+	    }, 100);
+	    alert(3);
+    </script>
+</body>
+</html>
