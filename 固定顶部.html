@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>固定顶部</title>
+	<meta charset="UTF-8">
+	<style>
+	    *{
+	    	margin: 0px;
+	    	padding: 0px;
+	    }
+	    body{
+	    	height: 2000px;
+	    }
+		#header{
+			background: #ff3;
+			height: 300px;
+			width: 100%;
+		}
+		#search{
+			background: #047;
+			height: 100px;
+			width: 100%;
+		}
+		.fix{
+			position: fixed;
+			top: 0;
+			left: 0;
+		}
+
+	</style>
+</head>
+
+<body>
+	<div id="header">header</div>
+	<div id="search">search</div>
+
+
+
+
+
+
+
+
+
+	<script>
+		var oSearch = document.getElementById('search');
+		var iSearchTop = oSearch.offsetTop;//search距离顶部的高度
+		var bIsFixed = false;
+		window.onscroll = function(){
+			var iScrollTop = document.documentElement.scrollTop || document.body.scrollTop;//获取滚动条近距离顶部的高度
+			if (iScrollTop >= iSearchTop && !bIsFixed) {
+				//oSearch.style.position = 'fixed';
+				//oSearch.style.top = 0;
+				//oSearch.style.left = 0;
+				oSearch.className = "fix";
+				bIsFixed = true;
+				console.log("fixed");
+			}else if (iScrollTop < iSearchTop && bIsFixed){
+				//oSearch.style.position = 'static';
+				oSearch.className = "";
+				bIsFixed = false;
+				console.log("not fixed");
+			}
+		};
+
+	</script>
+
+
+
+
+</body>
+</html>
