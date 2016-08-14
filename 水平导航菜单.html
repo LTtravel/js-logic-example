@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>水平导航菜单</title>
+	<meta charset="UTf-8">
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		ul{
+			list-style: none;
+		}
+		ul .first-level{
+			float: left;
+			height: 26px;
+			width: 80px;
+			text-align: center;
+			line-height: 26px;
+			border: 1px solid #aaa;
+			background: url("imgs/arrow.jpg") no-repeat right 8px;
+		}
+		.li-ul{
+			border: 1px solid #aaa;
+			display: none;
+		}
+		.li-ul li:hover{
+			background: #ccc;
+			color: #fff;
+		}
+	</style>
+</head>
+<body>
+	<ul id="tab">
+		<li class="first-level">列表1
+			<ul class="li-ul">
+				<li>1.1</li>
+				<li>1.2</li>
+				<li>1.3</li>
+			</ul>
+		</li>
+		<li class="first-level">列表2
+			<ul class="li-ul">
+				<li>2.1</li>
+				<li>2.2</li>
+				<li>2.3</li>
+			</ul>
+		</li>
+		<li class="first-level">列表3
+			<ul class="li-ul">
+				<li>3.1</li>
+				<li>3.2</li>
+				<li>3.3</li>
+			</ul>
+		</li>
+		<li class="first-level">列表4
+			<ul class="li-ul">
+				<li>4.1</li>
+				<li>4.2</li>
+				<li>4.3</li>
+			</ul>
+		</li>
+	</ul>
+
+	<script>
+		var oTab = document.getElementById('tab');
+		var aLi = document.getElementsByClassName('first-level');
+		for (var i = 0; i < aLi.length; i++) {
+			aLi[i].onmouseover = function(){
+				this.style.backgroundPosition = 'right -12px';
+				var aUl = this.getElementsByClassName('li-ul')[0];
+				aUl.style.display = 'block';
+			};
+			aLi[i].onmouseout = function(){
+				this.style.backgroundPosition = 'right 8px';
+				var aUl = this.getElementsByClassName('li-ul')[0];
+				aUl.style.display = 'none';
+			};
+		}
+		
+	</script>
+</body>
+</html>
