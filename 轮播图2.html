@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>轮播图2</title>
+	<meta charset="UTF-8">
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		ul{
+			list-style: none;
+		}
+		#container{
+			height: 300px;
+			width: 300px;
+			margin: 100px auto;
+			position: relative;
+		}
+		#imgs img{
+			height: 300px;
+			width: 300px;
+			/*display: none;*/
+		}
+		#pic-num{
+			position: absolute;
+			right: 0;
+			bottom: 5px;
+			cursor: pointer;
+		}
+		#pic-direct{
+			position: absolute;
+			left: 0;
+			bottom: 5px;
+			cursor: pointer;
+		}
+		#pic-num li,#pic-direct li{
+			height: 20px;
+			width: 20px;
+			background: #fc6;
+			color: #000;
+			line-height: 20px;
+			text-align: center;
+			float: left;
+			margin-right: 2px;
+		}
+		#mask{
+			height: 300px;
+			width: 300px;
+			background: #ccc;
+			text-align: center;
+			line-height: 300px;
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: 1;
+			opacity: 0.7;
+			filter: alpha(opacity = 70);
+		}
+	</style>
+</head>
+<body>
+	<div id="container">
+		<div id="mask">加载中...</div>
+		<div id="imgs"></div>
+		<ul id="pic-num"></ul>
+		<ul id="pic-direct">
+			<li id="pre">&lt;</li>
+			<li id="next">&gt;</li>
+		</ul>
+	</div>
+
+	<script>
+		var oContainer = getElemById("container");
+		var oImgs = getElemById("imgs");
+		var aImgs = getElemsByTagName(oImgs,"img");
+		var oPicNum = getElemById("pic-num");
+		var aPicNums = getElemsByTagName(oPicNum,"li");
+		var oPicDirect = getElemById("pic-direct");
+		var oPre = getElemById("pre");
+		var oNext = getElemById("next");
+		var oMask = getElemById("mask");
+		var nowIdx = 0;//存储当前图片的下标
+		var imgNum = 7;//要加载的图片数量
+		var count = 0;//记录已经加载的图片个数
+		//1.动态生成img标签和li标签
+		for (var i=0; i<imgNum; i++) {
+			var oImg = new Image();
+			oImg.onload = function(){
+				count++;
+				if (count == imgNum) {
+					loadsuccess();
+				}
+			};
+			oImg.src = 'imgs/' + (i + 1) +'.jpg';
+			oImgs.appendChild(oImg);
+			var oLi = document.createElement('li');
+			oLi.innerHTML = i + 1;
+			oPicNum.appendChild(oLi);
+		}
+		function loadsuccess(){
+			oContainer.removeChild(oMask);//图片加载成功后去除遮罩层
+			changeImg(nowIdx);
+			for (var i=0; i<aPicNums.length; i++) {
+	        	aPicNums[i].index = i;
+	        	aPicNums[i].onmouseover = function(){
+	    			changeImg(this.index);
+	    			nowIdx = this.index;//锁定当前划过的位置，鼠标划出后，按当前状态继续变换
+	    		};
+	        }
+	        oPre.onclick = oNext.onclick = function(){
+	        	if (this == oPre) {
+	        		nowIdx--;
+	        		if (nowIdx == -1) {
+	        			nowIdx = aPicNums.length - 1;
+	        		}	
+	        	}else{
+	        		nowIdx++;
+	        		if (nowIdx == aPicNums.length) {
+	        			nowIdx = 0;
+	        		}
+	        	}
+	        	changeImg(nowIdx);
+	        };
+	        var timer = setInterval(function(){
+	    		oNext.onclick();
+	    	},1000);
+	    	oContainer.onmouseover = function(){
+	    		clearInterval(timer);
+	    	};
+	    	oContainer.onmouseout = function(){
+	    		clearInterval(timer);
+	    		timer = setInterval(function(){
+	    			oNext.onclick();
+	    		},1000);
+	    	};
+		}
+		function changeImg(idx){
+        	var nowIndex = idx;
+        	for (var j=0; j<aPicNums.length; j++) {
+        		aPicNums[j].style.background = "#fc6";
+        		aPicNums[j].style.color = "#000";
+        		aImgs[j].style.display = "none";
+        	}
+        	aPicNums[nowIndex].style.background = "#f50";
+        	aPicNums[nowIndex].style.color = "#fff";
+        	aImgs[nowIndex].style.display = "block";
+        }
+        function getElemById(id){
+        	return document.getElementById(id);
+        }
+        function getElemsByTagName(obj,tag){
+        	return obj.getElementsByTagName(tag);
+        }
+		
+	</script>
+</body>
+</html>
