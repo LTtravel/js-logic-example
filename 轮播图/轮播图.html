@@ -81,58 +81,56 @@
 		var oContainer = document.getElementById("container");
 		var aImg = oContainer.getElementsByTagName("img");
 		var oPicNum = document.getElementById("pic-num");
-    	var aLiOne = oPicNum.getElementsByTagName("li");
-    	var oPre = document.getElementById('pre');
-    	var oNext = document.getElementById('next');
-        var nowIndex = 0;//全局变量，存储当前选中的下标
-        function change(idx){
-        	var nowIndex = idx;
-        	for (var j = 0; j < aLiOne.length; j++) {
-        		aLiOne[j].style.background = "#fc6";
-        		aLiOne[j].style.color = "#000";
-        		aImg[j].style.display = "none";
-        	}
-        	aLiOne[nowIndex].style.background = "#f50";
-        	aLiOne[nowIndex].style.color = "#fff";
-        	aImg[nowIndex].style.display = "block";
-        }
-        for (var i = 0; i < aLiOne.length; i++) {
-        	aLiOne[i].index = i;
-        	aLiOne[i].onmouseover = function(){
-    			change(this.index);
-    			nowIndex = this.index;//锁定当前划过的位置，鼠标划出后，按当前状态继续变换
-    		};
-        }
+    		var aLiOne = oPicNum.getElementsByTagName("li");
+    		var oPre = document.getElementById('pre');
+    		var oNext = document.getElementById('next');
+		var nowIndex = 0;//全局变量，存储当前选中的下标
+	        function change(idx){
+	        	var nowIndex = idx;
+	        	for (var j = 0; j < aLiOne.length; j++) {
+	        		aLiOne[j].style.background = "#fc6";
+	        		aLiOne[j].style.color = "#000";
+	        		aImg[j].style.display = "none";
+	        	}
+	        	aLiOne[nowIndex].style.background = "#f50";
+	        	aLiOne[nowIndex].style.color = "#fff";
+	        	aImg[nowIndex].style.display = "block";
+	        }
+	        for (var i = 0; i < aLiOne.length; i++) {
+	        	aLiOne[i].index = i;
+	        	aLiOne[i].onmouseover = function(){
+	    			change(this.index);
+	    			nowIndex = this.index;//锁定当前划过的位置，鼠标划出后，按当前状态继续变换
+	    		};
+	        }
 
-        oPre.onclick = oNext.onclick = function(){
-        	if (this == oPre) {
-        		nowIndex--;
-        		if (nowIndex == -1) {
-        			nowIndex = aLiOne.length - 1;
-        		}	
-        	}else{
-        		nowIndex++;
-        		if (nowIndex == aLiOne.length) {
-        			nowIndex = 0;
-        		}
-        	}
-        	change(nowIndex);
-        };
-    	
-    	var timer = setInterval(function(){
-    		oNext.onclick();
-    	},1000);
-    	oContainer.onmouseover = function(){
-    		clearInterval(timer);
-    	};
-    	oContainer.onmouseout = function(){
-    		clearInterval(timer);
-    		timer = setInterval(function(){
-    			oNext.onclick();
-    		},1000);
-    	};
-    		
-		
+	        oPre.onclick = oNext.onclick = function(){
+	        	if (this == oPre) {
+	        		nowIndex--;
+	        		if (nowIndex == -1) {
+	        			nowIndex = aLiOne.length - 1;
+	        		}	
+	        	}else{
+	        		nowIndex++;
+	        		if (nowIndex == aLiOne.length) {
+	        			nowIndex = 0;
+	        		}
+	        	}
+	        	change(nowIndex);
+	        };
+	    	
+	    	var timer = setInterval(function(){
+	    		oNext.onclick();
+	    	},1000);
+	    	oContainer.onmouseover = function(){
+	    		clearInterval(timer);
+	    	};
+	    	oContainer.onmouseout = function(){
+	    		clearInterval(timer);
+	    		timer = setInterval(function(){
+	    			oNext.onclick();
+	    		},1000);
+	    	};
 	</script>
 
 
