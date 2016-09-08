@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>轮播图4</title>
+	<meta charset="UTF-8">
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		ul{
+			list-style: none;
+		}
+		#container{
+			height: 300px;
+			width: 300px;
+			margin: 100px auto;
+			position: relative;
+			overflow: hidden;
+		}
+		#imgs{
+			width: 1500px;
+			position: absolute;
+			left: 0px;
+		}
+		#imgs img{
+			height: 300px;
+			width: 300px;
+			float: left;
+			/*display: none;*/
+		}
+		#pic-num li,#pic-direct li{
+			height: 20px;
+			width: 20px;
+			background: #fc6;
+			color: #000;
+			line-height: 20px;
+			text-align: center;
+			float: left;
+			margin-right: 2px;
+		}
+		#pic-num{
+			position: absolute;
+			right: 0;
+			bottom: 5px;
+			cursor: pointer;
+		}
+		#pic-direct{
+			position: absolute;
+			left: 0;
+			bottom: 5px;
+			cursor: pointer;
+		}
+		#imgs #first-pic{
+			display: inline-block;
+		}
+		#pic-num #first-num{/*注意权重值问题*/
+    		background: #f50;
+    		color: #fff;
+		}
+	</style>
+</head>
+<body>
+	<div id="container">
+		<div id="imgs">
+			<img src="imgs/1.jpg" id="first-pic">
+			<img src="imgs/2.jpg">
+			<img src="imgs/3.jpg">
+			<img src="imgs/4.jpg">
+			<img src="imgs/5.jpg">
+		</div>
+		<ul id="pic-num">
+			<li id="first-num">1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+			<li>5</li>
+		</ul>
+		<ul id="pic-direct">
+			<li id="pre">&lt;</li>
+			<li id="next">&gt;</li>
+		</ul>
+	</div>
+	<script src="wichung-1.0.js"></script><!-- wichung-1.0.js是封装了若干函数的文件 -->
+	<script>
+		var oContainer = document.getElementById("container");
+		var aImg = oContainer.getElementsByTagName("img");
+		var oImgs = document.getElementById("imgs");
+		var oPicNum = document.getElementById("pic-num");
+    	var aLiOne = oPicNum.getElementsByTagName("li");
+    	var oPre = document.getElementById('pre');
+    	var oNext = document.getElementById('next');
+        var nowIndex = 0;//全局变量，存储当前选中的下标
+        oImgs.appendChild(aImg[0].cloneNode());
+        oImgs.style.width = "1800px";
+        function changeImg(idx){
+        	nowIndex = idx;
+        	for (var j = 0; j < aLiOne.length; j++) {//默认值
+    				aLiOne[j].style.background = "#fc6";
+    				aLiOne[j].style.color = "#000";
+    			}
+    			aLiOne[nowIndex == aLiOne.length?0:nowIndex].style.background = "#f50";
+    			aLiOne[nowIndex == aLiOne.length?0:nowIndex].style.color = "#fff";//白色
+    			animate(oImgs,{left:-aImg[0].offsetWidth*nowIndex});//利用了封装好的函数
+        }
+    	for (var i=0; i<aLiOne.length; i++) {
+    		aLiOne[i].index = i;
+    		aLiOne[i].onmouseover = function(){
+    			nowIndex = this.index;
+    			changeImg(nowIndex);
+    		};
+    	}
+    	oPre.onclick = oNext.onclick = function(){
+    		if (this == oNext) {
+    			nowIndex++;
+    			if (nowIndex == aImg.length) {
+    				nowIndex = 1;
+    				oImgs.style.left = 0;
+    			}
+    		}else{
+    			nowIndex--;
+    			if (nowIndex == -1) {
+    				nowIndex = aImg.length - 2;
+    				oImgs.style.left = -oImgs.offsetWidth + aImg[0].offsetWidth +'px';
+    			}
+    		}
+    		changeImg(nowIndex);
+    	};
+    	var timer = setInterval(function(){
+    		oNext.onclick();
+    	},1000);
+    	oContainer.onmouseover = function(){
+    		clearInterval(timer);
+    	};
+    	oContainer.onmouseout = function(){
+    		clearInterval(timer);
+    		timer = setInterval(function(){
+    		oNext.onclick();
+    	},1000);
+    	};
+	</script>
+</body>
+</html>
