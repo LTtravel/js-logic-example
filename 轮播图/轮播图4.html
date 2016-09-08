@@ -11,6 +11,9 @@
 		ul{
 			list-style: none;
 		}
+		img{
+			padding: 0;
+		}
 		#container{
 			height: 300px;
 			width: 300px;
@@ -96,12 +99,12 @@
         function changeImg(idx){
         	nowIndex = idx;
         	for (var j = 0; j < aLiOne.length; j++) {//默认值
-    				aLiOne[j].style.background = "#fc6";
-    				aLiOne[j].style.color = "#000";
-    			}
-    			aLiOne[nowIndex == aLiOne.length?0:nowIndex].style.background = "#f50";
-    			aLiOne[nowIndex == aLiOne.length?0:nowIndex].style.color = "#fff";//白色
-    			animate(oImgs,{left:-aImg[0].offsetWidth*nowIndex});//利用了封装好的函数
+    			aLiOne[j].style.background = "#fc6";
+    			aLiOne[j].style.color = "#000";
+    		}
+    		aLiOne[nowIndex == aLiOne.length?0:nowIndex].style.background = "#f50";
+    		aLiOne[nowIndex == aLiOne.length?0:nowIndex].style.color = "#fff";//白色
+    		animate(oImgs,{left:-aImg[0].offsetWidth*nowIndex});//利用了封装好的函数
         }
     	for (var i=0; i<aLiOne.length; i++) {
     		aLiOne[i].index = i;
@@ -135,8 +138,8 @@
     	oContainer.onmouseout = function(){
     		clearInterval(timer);
     		timer = setInterval(function(){
-    		oNext.onclick();
-    	},1000);
+    			oNext.onclick();
+    		},1000);
     	};
 	</script>
 </body>
