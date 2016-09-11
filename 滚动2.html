@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>滚动做法2</title>
+	<meta charset="UTF-8">
+	<style>
+		*{
+			margin: 0;
+			padding: 0;
+			height: 2000px;
+		}
+		ul{
+			list-style: none;
+		}
+		#pic{
+			height: 150px;
+			width: 440px;
+			position: absolute;
+		}
+		#container{
+			height: 200px;
+			width: 330px;
+			border: 1px solid #309;
+			margin: 100px 300px;
+			overflow: hidden;
+			position: relative;
+		}
+		#pic li{
+			height: 150px;
+			width: 100px;
+			float: left;
+			background: #88f;
+			color: #fff;
+			line-height: 150px;
+			text-align: center;
+			margin-right: 10px;
+		}
+		#left , #right{
+			height: 25px;
+			width: 40px;
+			line-height: 25px;
+			text-align: center;
+			background: #fc6;
+			display: inline-block;
+			margin-top: 20px;
+		}
+		#direction{
+			position: absolute;
+			width: 100px;
+			height: 30px;
+			left: 50%;
+			margin-left: -50px;
+			bottom: 30px;
+		}
+	</style>
+</head>
+<body>
+	<div id="container">
+		<ul id="pic">
+			<li>1</li>
+			<li>2</li>
+			<li>3</li>
+			<li>4</li>
+		</ul>
+		<div id="direction">
+			<span id="left">向左</span>
+			<span id="right">向右</span>
+		</div>
+	</div>
+	<script>
+		var speed = 10;
+		var oPic = document.getElementById('pic');
+		var oLeft = document.getElementById('left');
+		var oRight = document.getElementById('right');
+		setInterval(function(){
+			oPic.style.left = oPic.offsetLeft - speed +'px';
+			// console.log(-oPic.offsetWidth/4);
+			// console.log(oPic.offsetLeft);
+			if (parseInt(oPic.style.left) < -oPic.offsetWidth / 4) {
+				var firstChild = first(oPic);
+				oPic.removeChild(first(oPic));
+				oPic.appendChild(firstChild);
+				oPic.style.left = 0;
+			}
+		},150);
+		function next(elem){
+			do{
+				elem = elem.nextSibling;
+			}while(elem && elem.nodeType != 1);
+			return elem;
+		}
+		function first(elem){
+			elem =elem.firstChild;
+			return (elem && elem.nodeType == 1 ? elem : next(elem));
+		}
+	</script>
+</body>
+</html>
