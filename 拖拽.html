@@ -45,6 +45,21 @@
 					console.log(document.body.clientWidth);
 					oPic.style.left = document.body.clientWidth - oPic.offsetWidth + 'px';
 				}
+				if (oPic.offsetTop > window.innerHeight - oPic.offsetHeight) {
+					console.log(oPic.offsetTop);
+					console.log(oPic.offsetHeight);
+					console.log(document.body.clientHeight);
+					console.log(window.innerHeight);
+					console.log(window.innerWidth);
+
+					oPic.style.top = window.innerHeight - oPic.offsetHeight + 'px';
+				}
+				if(oPic.offsetLeft < 0){
+					oPic.style.left = 0 + 'px';
+				}
+				if(oPic.offsetTop < 0){
+					oPic.style.top = 0 + 'px';
+				}
 			};
 		};
 		oPic.onmouseup = function(){
