@@ -11,9 +11,18 @@
 		img{
 			border: 0;
 		}
+		#small-pic{
+			height: 150px;
+			width: 150px;
+			position: relative;
+		}
 		#mark{
 			height: 30px;
 			width: 50px;
+			background-color: #777;
+			opacity: 0.6;
+			display: none;
+			position: absolute;
 		}
 		#big-pic{
 			height: 100px;
@@ -31,5 +40,19 @@
 			<img src="big.jpg">
 		</div>
 	</div>
+		<script type="text/javascript">
+		(function(){
+			var oMark = document.getElementById('mark');
+			var oBigPic = document.getElementById('big-pic');
+			var oSmallPic = document.getElementById('small-pic');
+
+			oSmallPic.onmouseover = function(){
+				oMark.style.display = 'block';
+				oMark.onclick = function(){
+					
+				};
+			};
+		})();
+	</script>
 </body>
 </html>
