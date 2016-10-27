@@ -11,6 +11,10 @@
 		img{
 			border: 0;
 		}
+		a{
+			text-decoration: none;
+			color: #000;
+		}
 		#small-pic{
 			height: 150px;
 			width: 150px;
@@ -70,6 +74,8 @@
 						}else if(oMark.offsetTop > oMark.offsetParent.offsetHeight - oMark.offsetHeight){
 							oMark.style.top = oMark.offsetParent.offsetHeight - oMark.offsetHeight + 'px';
 						}
+					var bigLeft = oMark.offsetLeft * 5;
+					var bigTop = oMark.offsetTop * 4;
 				};	
 			};
 			oMark.onmouseup = function(){
