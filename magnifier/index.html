@@ -48,17 +48,28 @@
 
 			oSmallPic.onmouseover = function(){
 				oMark.style.display = 'block';
+				oMark.style.cursor = 'pointer';
 				
 			};
-			oMark.onclick = function(){
+			oMark.onmousedown = function(e){
 				e = e || event;
 				console.log('x=' + e.clientX);
 				console.log('y=' + e.clientY);
 				var iDisX = e.clientX - oMark.offsetLeft;
 				var iDisY = e.clientY - oMark.offsetTop;
-				oMark.onmousemove = function(){
+				oMark.onmousemove = function(e){
 					oMark.style.left = e.clientX -iDisX + 'px';
 					oMark.style.top = e.clientY - iDisY +'px';
+					if (oMark.offsetLeft < 0) {
+							oMark.style.left = 0 + 'px';
+						}else if(oMark.offsetLeft > oMark.offsetParent.offsetWidth - oMark.offsetWidth){
+							oMark.style.left = oMark.offsetParent.offsetWidth - oMark.offsetWidth + 'px';
+						}
+						if(oMark.offsetTop < 0){
+							oMark.style.top = 0 + 'px';
+						}else if(oMark.offsetTop > oMark.offsetParent.offsetHeight - oMark.offsetHeight){
+							oMark.style.top = oMark.offsetParent.offsetHeight - oMark.offsetHeight + 'px';
+						}
 				};	
 			};
 			oMark.onmouseup = function(){
