@@ -91,6 +91,10 @@
 			oMark.onmouseup = function(){
 				document.onmousemove = null;
 			};
+			oSmallPic.onmouseout = function(){
+				oMark.style.display = 'none';
+				oBigPic.style.display = 'none';
+			};
 		})();
 	</script>
 </body>
