@@ -15,6 +15,9 @@
 			text-decoration: none;
 			color: #000;
 		}
+		#big-pic img{
+			position: absolute;
+		}
 		#small-pic{
 			height: 150px;
 			width: 150px;
@@ -25,13 +28,18 @@
 			width: 50px;
 			background-color: #777;
 			opacity: 0.6;
+			filter: alpha(opacity=60);
 			display: none;
 			position: absolute;
 		}
 		#big-pic{
 			height: 100px;
 			width: 250px;
-			/*overflow: hidden;*/
+			position: absolute;
+			margin-top: -140px;
+			margin-left: 160px;
+			overflow: hidden;
+			display: none;
 		}
 </head>
 <body>
@@ -74,8 +82,10 @@
 						}else if(oMark.offsetTop > oMark.offsetParent.offsetHeight - oMark.offsetHeight){
 							oMark.style.top = oMark.offsetParent.offsetHeight - oMark.offsetHeight + 'px';
 						}
-					var bigLeft = oMark.offsetLeft * 5;
-					var bigTop = oMark.offsetTop * 4;
+					var bigLeft = oMark.offsetLeft * -5;
+					var bigTop = oMark.offsetTop * -4;
+					oBigBg.style.left = bigLeft + 'px';
+					oBigBg.style.top = bigTop + 'px';
 				};	
 			};
 			oMark.onmouseup = function(){
