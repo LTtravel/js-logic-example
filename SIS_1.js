@@ -1,4 +1,5 @@
 function insertSort(arr){
+	//直接插入排序，arr[0]作为监视哨
 	for ( i = 2; i <= arr.length; i++) {
 		if(arr[i] < arr[i-1]){
 			arr[0] = arr[i];
