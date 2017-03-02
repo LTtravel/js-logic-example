@@ -1,10 +1,7 @@
 function insertSort(arr){
-<<<<<<< HEAD
 	for (var i = 1; i <= arr.length; i++) {
-=======
 	//直接插入排序，arr[0]作为监视哨
 	for ( i = 2; i <= arr.length; i++) {
->>>>>>> origin/master
 		if(arr[i] < arr[i-1]){
 			var sign;  //定义一个监视哨sign
 			sign = arr[i];  //将待插入的值arr[i]暂存到监视哨
@@ -18,8 +15,6 @@ function insertSort(arr){
 	}
 }
 
-
-
 var arr = new Array;
 arr[1] = 2;
 arr[3] = 4;
@@ -30,12 +25,6 @@ arr[0] = 0;
 insertSort(arr);
 console.log(arr);
 
-<<<<<<< HEAD
 var arr2 = [23,45,33,11,36,19];
 insertSort(arr2);
 console.log(arr2);
-=======
-// var ele = [1,3,5,9,7];
-// console.log(ele);
-// console.log(typeof ele);
->>>>>>> origin/master
