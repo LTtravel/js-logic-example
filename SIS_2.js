@@ -20,3 +20,7 @@ function sort(elements){
     }
   }
 }
+var elements = [10, 9, 8, 7, 6, 5];
+console.log('before: ' + elements);
+sort(elements);
+console.log('after: ' + elements);
