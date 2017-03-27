@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>playfair</title>
+	<meta charset="UTF-8">
+	<style>
+		.btn{
+			width: 100px;
+			height: 30px;
+			margin: 20px 30px;
+		}
+		textarea{
+			width: 400px;
+			height: 40px;
+			margin: 10px;
+		}
+	</style>
+</head>
+<body>
+	<form name="form_p">
+		<h3>playfair</h3>
+		明文：<textarea id="text"></textarea><br/>
+		密钥：<textarea id="key_p"></textarea><br/>
+		密文：<textarea id="secret_p"></textarea><br/>
+			
+		<input class="btn" type="button" name="button_p" value="获取密文" onclick="playfair()"/>
+		<input class="btn" type="button" name="button_p" value="破译明文" onclick="playfair_unlock()"/>
+	</form>
+	<form name="form_c">
+		<h3>caesar</h3>
+		明文：<textarea id="text_c"></textarea><br/>
+		密钥：<textarea id="key_c" placeholder="k的值"></textarea><br/>
+		密文：<textarea id="secret_c"></textarea><br/>
+		<input class="btn" type="button" name="button_p" value="获取密文" onclick="caesar()"/>
+		<input class="btn" type="button" name="button_p" value="破译明文" onclick="caesarUnlock()"/>
+	</form>
+
+	<script>
+		//(function(){
+		function caesar(){
+			var allChars = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+			var flg = 1;
+			var text = document.getElementById("text_c").value;
+			var key = document.getElementById("key_c").value;
+			var secret = document.getElementById("secret_c");
+			var text_new = toUpp(text);
+			var key_idx = keyIdx(allChars,text_new,key,flg);
+			secret_c.value = outputText(outputCaesar(allChars,key_idx));
+		}
+		function caesarUnlock(){
+			var allChars = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+			var flg = 0;
+			var text = document.getElementById("text_c");
+			var key = document.getElementById("key_c").value;
+			var secret = document.getElementById("secret_c").value;
+			var key_idx = keyIdx(allChars,secret,key,flg);
+			console.log(key_idx);
+			text.value = outputText(outputCaesar(allChars,key_idx));
+		}
+		function outputCaesar(allChars,key_idx){
+			/*通过数组key_idx内容来对应字母表*/
+			var arr = new Array();
+			for(var i=0;i<key_idx.length;i++){
+				arr.push(allChars[key_idx[i]]);
+			}
+			return arr;
+		}
+		function keyIdx(allChars,arr,key,flag){
+			/*通过加密算法会得到新的密码在allChars中的下标*/
+			var index_arr = new Array();
+			for(var i=0; i<arr.length; i++){
+				var index = arrIdx(allChars,arr[i]);
+				key_number = parseInt(key);
+				if(flag == 1){
+					index = (index+key_number)%26;
+				}else{
+					index = (index - key + 26)%26;
+				}
+				index_arr.push(index);
+			}
+			return index_arr;
+		}
+		function arrIdx(allChars,char){
+			/* 查找char在字母表allChars的位置 */
+			for(var i=0; i<allChars.length; i++){
+				if(allChars[i] == char){
+					return i;
+				}
+			}
+		}
+		////////////////////////////////////////
+		function playfair(){
+			/* playfair加密算法 */
+			var flg = 1;
+			// 获取明文
+			var text = document.getElementById("text").value;
+			// 获取密钥
+			var key = document.getElementById("key_p").value;
+			// 获取密文
+			var secret = document.getElementById("secret_p");
+			var key_matrix = keyMatrix(key);
+			var text_arr = toUpp(text);
+			var text_arr1 = makeText(text_arr);
+			var text_new = changeText(text_arr1,key_matrix,flg);
+			secret.value = outputText(text_new);
+		}
+		function playfair_unlock(){
+			/* playfair解密算法 */
+			var flg = 0;
+			// 获取明文
+			var text = document.getElementById("text");
+			// 获取密钥
+			var key = document.getElementById("key_p").value;
+			// 获取密文
+			var secret = document.getElementById("secret_p").value;
+
+			var key_matrix = keyMatrix(key);
+			var secret_arr = toUpp(secret);
+			console.log(secret_arr);
+			var text_new = changeText(secret_arr,key_matrix,flg);
+			text.value = outputText(text_new);
+		}
+		function outputText(text_arr){
+			/* 把得到的密文以字符串形式返回 */
+			var str = changeStr(text_arr);
+			return str;
+		}
+		function changeText(text_arr,key_matrix,flag){
+			/* 找到明文对应的密钥字母，以数组形式返回 */
+			var one;
+			if(flag == 1){
+				one = 1;
+			}else{
+				one = -1;
+			}
+			var arr = new Array();
+			for(var i=0;i<text_arr.length;){
+				var temp_1 = findIdx(key_matrix,text_arr[i]);
+				var temp_2 = findIdx(key_matrix,text_arr[i+1]);
+
+				var temp_1_i = temp_1[0];
+				var temp_1_j = temp_1[1];
+				var temp_2_i = temp_2[0];
+				var temp_2_j = temp_2[1];
+
+				if(temp_1_i == temp_2_i){
+					/* 在同一行时，向右移 */
+					// 判断纵坐标是否越界
+					temp_1_j = indexJudge(temp_1_j+one);
+					// console.log(temp_1_j);
+					temp_2_j = indexJudge(temp_2_j+one);
+				}else if(temp_1_j == temp_2_j){
+					/* 在同一列时，向下移 */
+					// 判断横坐标是否越界
+					temp_1_i = indexJudge(temp_1_i+one);
+					temp_2_i = indexJudge(temp_2_i+one);
+				}else{
+					temp_1_j = temp_2_j - temp_1_j;
+					temp_2_j = temp_2_j - temp_1_j;
+					temp_1_j = temp_2_j + temp_1_j;
+				}
+				arr.push(key_matrix[temp_1_i][temp_1_j]);
+				arr.push(key_matrix[temp_2_i][temp_2_j]);
+				arr.push(" ");
+				i+=2;
+			}
+			return arr;
+		}
+		function indexJudge(idx){
+			if(idx>=5){
+				idx = idx % 5;
+			}
+			if(idx<0){
+				idx = (idx+5)%5;
+			}
+			return idx;
+		}
+		function findIdx(key_matrix,char){
+			for(var i=0;i<key_matrix.length;i++){
+				for(var j=0;j<key_matrix.length;j++){
+					if(key_matrix[i][j] == char){
+						var index=new Array(i,j);
+    					return index;  
+					}
+				}
+
+			}
+		}
+		function makeText(text_arr){
+			for(var i=0;i<text_arr.length-1;){
+				if(text_arr[i] == text_arr[i+1]){
+					// 两个字母相同，插入X
+					text_arr.splice(i+1,0,"X");
+				}
+				i+=2;
+			}
+			if(text_arr.length % 2 !=0){
+				text_arr.push("Y");
+				console.log(1);
+			}else{
+				console.log(2);
+			}
+			return text_arr;
+		}
+
+		function keyMatrix(key_str){
+			/* 生成密钥矩阵 */
+			// 处理后的密钥change_key
+			var change_key = makeKey_p(key_str);
+			// 根据密钥得到的字母矩阵值word
+			var word = keyArr(changeStr(change_key));
+			// 形成密钥矩阵key_matrix
+			var key_matrix = makeMatrix(combineArr(change_key,word));
+			return key_matrix;
+		}
+		function makeMatrix(arr){
+			/* 把数组写入5*5矩阵中 */
+            var aa = new Array();
+			for(i=0;i<5;i++)
+			{
+			    aa[i]=new Array(); //将每一个子元素又定义为数组
+			    for(j=0;j<5;j++)
+			    {
+			        aa[i][j] = arr[i*5+j]; //此时aa[i][n]可以看作是一个二级数组
+			    }
+			} 
+            return aa;
+		}
+		function combineArr(arr1,arr2){
+			/* 把数组1的内容放到数组2前，返回拼接好的数组arr2 */
+			for(var i=arr1.length-1 ; i>=0 ; i--){
+		        arr2.unshift(arr1[i]);
+		    }
+		    return arr2;
+		}
+		function makeKey_p(key){
+			var key_c = toUpp(key);
+			// 数组内容去重
+			var key_u = unique(key_c);
+			// 得到了处理后的密码（数组类型）
+			return key_u;
+		}
+		function toUpp(str){
+			/* 字符串去空格、变大写、用I代替J */
+			var temp_key = str.toUpperCase().replace(/[^A-Z]*/g,"").replace(/J/g,"I");
+			var key_d = del_space(temp_key);
+			// 字符串变成数组并返回
+			var key_c = changeArr(key_d);
+			return key_c;
+		}
+		function keyArr(key){
+			/* 对比密钥，去除无用字母 */
+			var temp_key = key.toUpperCase().replace(/[^A-Z]*/g,"").replace(/J/g,"I");
+			// console.log(temp_key);
+
+			var allChars = ['A','B','C','D','E','F','G','H','I','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z'];
+			for(var i = 0 ;i<temp_key.length;i++){
+				var index = allChars.indexOf(temp_key[i]);
+		        if (index > -1) {
+		            allChars.splice(index, 1);
+		        }
+			}
+			// console.log(allChars);
+			return allChars;
+		}
+		function changeStr(arr){
+			/* 数组变字符串 */
+			var str;
+			str = arr.join("");
+			return str;
+		}
+		function changeArr(str){
+			//字符串变成数组并返回
+			var newStr = str.split("");
+			return newStr; 
+		}
+		function del_space(str){
+			//字符串去空格
+			var newStr = str.replace(/\s/g, "");
+			return newStr;
+		}
+		function unique(str) {
+			//数组内容去重
+            var newArr = [],
+                i = 0,
+                len = str.length;    
+            for(; i < len; i++) {
+                var a = str[i];
+                if(newArr.indexOf(a) !== -1) {
+                    continue;
+                }else {
+                    newArr[newArr.length] = a;     
+                }
+            }
+            return newArr;             
+        }  
+		//})();
+
+	</script>
+</body>
+</html>
