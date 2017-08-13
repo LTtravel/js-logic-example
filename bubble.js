@@ -1,0 +1,1 @@
+var arr = new Array(0,12,28,14,1,3);
